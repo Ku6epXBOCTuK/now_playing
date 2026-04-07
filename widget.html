@@ -61,35 +61,65 @@
         background: linear-gradient(to top, #00f4fe, #a1faff);
         border-radius: 9999px;
         transform-origin: bottom center;
-        transition: transform 1s ease;
       }
 
-      .visualizer-bar.level-1 {
-        transform: scaleY(0.2);
+      .visualizer-bar:nth-child(1) { animation: dance1 0.8s ease-in-out infinite; }
+      .visualizer-bar:nth-child(2) { animation: dance2 1.0s ease-in-out infinite; }
+      .visualizer-bar:nth-child(3) { animation: dance3 1.0s ease-in-out infinite; }
+      .visualizer-bar:nth-child(4) { animation: dance4 0.9s ease-in-out infinite; }
+      .visualizer-bar:nth-child(5) { animation: dance5 0.7s ease-in-out infinite; }
+
+      @keyframes dance1 {
+        0%   { transform: scaleY(0.45); }
+        12%  { transform: scaleY(0.55); }
+        25%  { transform: scaleY(0.4); }
+        37%  { transform: scaleY(0.6); }
+        50%  { transform: scaleY(0.5); }
+        62%  { transform: scaleY(0.55); }
+        75%  { transform: scaleY(0.4); }
+        100% { transform: scaleY(0.45); }
       }
-      .visualizer-bar.level-2 {
-        transform: scaleY(0.3);
+
+      @keyframes dance2 {
+        0%   { transform: scaleY(0.35); }
+        15%  { transform: scaleY(0.7); }
+        30%  { transform: scaleY(0.45); }
+        45%  { transform: scaleY(0.65); }
+        60%  { transform: scaleY(0.5); }
+        75%  { transform: scaleY(0.75); }
+        100% { transform: scaleY(0.35); }
       }
-      .visualizer-bar.level-3 {
-        transform: scaleY(0.4);
+
+      @keyframes dance3 {
+        0%   { transform: scaleY(0.5); }
+        10%  { transform: scaleY(0.9); }
+        20%  { transform: scaleY(0.3); }
+        35%  { transform: scaleY(1); }
+        50%  { transform: scaleY(0.2); }
+        65%  { transform: scaleY(0.85); }
+        80%  { transform: scaleY(0.4); }
+        100% { transform: scaleY(0.5); }
       }
-      .visualizer-bar.level-4 {
-        transform: scaleY(0.5);
+
+      @keyframes dance4 {
+        0%   { transform: scaleY(0.4); }
+        15%  { transform: scaleY(0.65); }
+        30%  { transform: scaleY(0.5); }
+        50%  { transform: scaleY(0.75); }
+        65%  { transform: scaleY(0.45); }
+        80%  { transform: scaleY(0.7); }
+        100% { transform: scaleY(0.4); }
       }
-      .visualizer-bar.level-5 {
-        transform: scaleY(0.6);
-      }
-      .visualizer-bar.level-6 {
-        transform: scaleY(0.7);
-      }
-      .visualizer-bar.level-7 {
-        transform: scaleY(0.8);
-      }
-      .visualizer-bar.level-8 {
-        transform: scaleY(0.9);
-      }
-      .visualizer-bar.level-9 {
-        transform: scaleY(1);
+
+      @keyframes dance5 {
+        0%   { transform: scaleY(0.4); }
+        12%  { transform: scaleY(0.5); }
+        25%  { transform: scaleY(0.6); }
+        40%  { transform: scaleY(0.45); }
+        55%  { transform: scaleY(0.55); }
+        70%  { transform: scaleY(0.4); }
+        85%  { transform: scaleY(0.6); }
+        100% { transform: scaleY(0.4); }
       }
 
       /* Content section */
@@ -190,11 +220,11 @@
     <div class="widget">
       <!-- Left: Asymmetric Visualizer -->
       <div class="visualizer">
-        <div class="visualizer-bar level-3"></div>
-        <div class="visualizer-bar level-7"></div>
-        <div class="visualizer-bar level-9"></div>
-        <div class="visualizer-bar level-6"></div>
-        <div class="visualizer-bar level-2"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
       </div>
       <!-- Right: Content -->
       <div class="content">
@@ -223,7 +253,6 @@
       const elapsedEl = document.querySelector(".time-elapsed");
       const totalEl = document.querySelector(".time-total");
       const progressBar = document.querySelector(".progress-bar-fill");
-      const visualizerBars = document.querySelectorAll(".visualizer-bar");
 
       function formatTime(seconds) {
         const m = Math.floor(seconds / 60);
@@ -236,13 +265,6 @@
         progressBar.style.animation = "none";
         progressBar.offsetHeight;
         progressBar.style.animation = "fillProgress var(--duration, 180s) linear forwards";
-      }
-
-      function updateBars() {
-        visualizerBars.forEach((bar) => {
-          const level = Math.floor(Math.random() * 9) + 1;
-          bar.className = "visualizer-bar level-" + level;
-        });
       }
 
       async function update() {
@@ -274,9 +296,7 @@
       }
 
       setInterval(update, 1000);
-      setInterval(updateBars, 1000);
       update();
-      updateBars();
     </script>
   </body>
 </html>
