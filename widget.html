@@ -217,7 +217,6 @@
         font-size: 10px;
         color: rgba(161, 250, 255, 0.8);
         font-weight: 500;
-        visibility: hidden;
       }
 
       .time-total {
@@ -225,7 +224,6 @@
         font-size: 10px;
         color: var(--on-surface-variant);
         font-weight: 500;
-        visibility: hidden;
       }
     </style>
   </head>
@@ -250,8 +248,8 @@
             <div class="progress-bar-fill"></div>
           </div>
           <div class="time-labels">
-            <span class="time-elapsed">00:00</span>
-            <span class="time-total">00:00</span>
+            <span class="time-elapsed">--:--</span>
+            <span class="time-total">--:--</span>
           </div>
         </div>
       </div>
@@ -289,8 +287,11 @@
         lastTrack = "";
         artistEl.textContent = "Ku6epXBOCTuK";
         trackEl.textContent = "github.com/Ku6epXBOCTuK";
-        totalEl.style.visibility = "hidden";
-        elapsedEl.style.visibility = "hidden";
+        totalEl.textContent = "--:--";
+        elapsedEl.textContent = "--:--";
+        progressBar.style.animation = "none";
+        progressBar.offsetHeight;
+        progressBar.style.animation = "";
         progressBar.style.animationPlayState = "paused";
         visualizerBars.forEach((bar) => bar.classList.add("paused"));
       }
@@ -298,8 +299,6 @@
       function showPlaying() {
         if (!isPaused) return;
         isPaused = false;
-        totalEl.style.visibility = "visible";
-        elapsedEl.style.visibility = "visible";
         progressBar.style.animationPlayState = "running";
         visualizerBars.forEach((bar) => bar.classList.remove("paused"));
       }
