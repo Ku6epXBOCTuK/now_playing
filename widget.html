@@ -71,7 +71,13 @@
 
       .visualizer-bar.paused {
         animation: none !important;
+        transform-origin: center center;
         transform: scaleY(0);
+      }
+
+      .visualizer-bar:nth-child(2).paused,
+      .visualizer-bar:nth-child(4).paused {
+        transform: scaleY(0.4);
       }
 
       @keyframes dance1 {
@@ -211,6 +217,7 @@
         font-size: 10px;
         color: rgba(161, 250, 255, 0.8);
         font-weight: 500;
+        visibility: hidden;
       }
 
       .time-total {
@@ -218,6 +225,7 @@
         font-size: 10px;
         color: var(--on-surface-variant);
         font-weight: 500;
+        visibility: hidden;
       }
     </style>
   </head>
@@ -225,25 +233,25 @@
     <div class="widget">
       <!-- Left: Asymmetric Visualizer -->
       <div class="visualizer">
-        <div class="visualizer-bar"></div>
-        <div class="visualizer-bar"></div>
-        <div class="visualizer-bar"></div>
-        <div class="visualizer-bar"></div>
-        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar paused"></div>
+        <div class="visualizer-bar paused"></div>
+        <div class="visualizer-bar paused"></div>
+        <div class="visualizer-bar paused"></div>
+        <div class="visualizer-bar paused"></div>
       </div>
       <!-- Right: Content -->
       <div class="content">
         <div class="metadata">
-          <span class="track-name">now_playing.html</span>
-          <span class="artist-name">Ku6epXBOCTuK</span>
+          <span class="track-name"></span>
+          <span class="artist-name"></span>
         </div>
         <div class="progress-section">
           <div class="progress-bar-container">
             <div class="progress-bar-fill"></div>
           </div>
           <div class="time-labels">
-            <span class="time-elapsed">0:00</span>
-            <span class="time-total">3:00</span>
+            <span class="time-elapsed">00:00</span>
+            <span class="time-total">00:00</span>
           </div>
         </div>
       </div>
@@ -273,7 +281,7 @@
         progressBar.style.animation = "fillProgress var(--duration, 180s) linear forwards";
       }
 
-      let isPaused = true;
+      let isPaused = false;
 
       function showPaused() {
         if (isPaused) return;
@@ -281,29 +289,19 @@
         lastTrack = "";
         artistEl.textContent = "Ku6epXBOCTuK";
         trackEl.textContent = "github.com/Ku6epXBOCTuK";
-        totalEl.textContent = "";
-        elapsedEl.textContent = "";
+        totalEl.style.visibility = "hidden";
+        elapsedEl.style.visibility = "hidden";
         progressBar.style.animationPlayState = "paused";
-        visualizerBars.forEach((bar, i) => {
-          if (i === 1 || i === 3) {
-            bar.classList.add("paused");
-            bar.style.transformOrigin = "center center";
-            bar.style.transform = "scaleY(0.4)";
-          } else {
-            bar.classList.add("paused");
-          }
-        });
+        visualizerBars.forEach((bar) => bar.classList.add("paused"));
       }
 
       function showPlaying() {
         if (!isPaused) return;
         isPaused = false;
+        totalEl.style.visibility = "visible";
+        elapsedEl.style.visibility = "visible";
         progressBar.style.animationPlayState = "running";
-        visualizerBars.forEach((bar) => {
-          bar.classList.remove("paused");
-          bar.style.transformOrigin = "";
-          bar.style.transform = "";
-        });
+        visualizerBars.forEach((bar) => bar.classList.remove("paused"));
       }
 
       async function update() {
@@ -343,9 +341,9 @@
         }
       }
 
-      setInterval(update, 1000);
       showPaused();
       update();
+      setInterval(update, 1000);
     </script>
   </body>
 </html>
