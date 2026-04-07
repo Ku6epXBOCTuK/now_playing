@@ -274,7 +274,7 @@
         try {
           const response = await fetch(filePath + "?t=" + Date.now());
           const text = await response.text();
-          const clean = text.trim();
+          const clean = text.replace(/^\uFEFF/, "").trim();
           if (!clean || clean === lastTrack) return;
 
           lastTrack = clean;
