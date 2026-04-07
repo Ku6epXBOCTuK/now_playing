@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        background-color: rgba(0, 0, 0, 0); /* Прозрачный фон */
+        margin: 0;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      #song-box {
+        display: inline-block;
+        padding: 10px 20px;
+        background: linear-gradient(90deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8));
+        color: white;
+        font-size: 24px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="song-box">Загрузка...</div>
+
+    <script>
+      const filePath = "track_info.txt"; // Имя вашего файла из AIMP
+      const songElement = document.getElementById("song-box");
+
+      async function updateSong() {
+        try {
+          // Добавляем timestamp к URL, чтобы избежать кэширования
+          const response = await fetch(filePath + "?t=" + Date.now());
+          const text = await response.text();
+          if (songElement.innerText !== text.trim()) {
+            songElement.innerText = text.trim();
+          }
+        } catch (e) {
+          console.error("Ошибка чтения файла:", e);
+        }
+      }
+
+      setInterval(updateSong, 1000); // Обновление каждую секунду
+      updateSong();
+    </script>
+  </body>
+</html>
