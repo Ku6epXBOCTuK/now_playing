@@ -63,11 +63,21 @@
         transform-origin: bottom center;
       }
 
-      .visualizer-bar:nth-child(1) { animation: dance1 0.8s ease-in-out infinite; }
-      .visualizer-bar:nth-child(2) { animation: dance2 1.0s ease-in-out infinite; }
-      .visualizer-bar:nth-child(3) { animation: dance3 1.0s ease-in-out infinite; }
-      .visualizer-bar:nth-child(4) { animation: dance4 0.9s ease-in-out infinite; }
-      .visualizer-bar:nth-child(5) { animation: dance5 0.7s ease-in-out infinite; }
+      .visualizer-bar:nth-child(1) {
+        animation: dance1 0.8s ease-in-out infinite;
+      }
+      .visualizer-bar:nth-child(2) {
+        animation: dance2 1s ease-in-out infinite;
+      }
+      .visualizer-bar:nth-child(3) {
+        animation: dance3 1s ease-in-out infinite;
+      }
+      .visualizer-bar:nth-child(4) {
+        animation: dance4 0.9s ease-in-out infinite;
+      }
+      .visualizer-bar:nth-child(5) {
+        animation: dance5 0.7s ease-in-out infinite;
+      }
 
       .visualizer-bar.paused {
         animation: none !important;
@@ -81,56 +91,132 @@
       }
 
       @keyframes dance1 {
-        0%   { transform: scaleY(0.45); }
-        12%  { transform: scaleY(0.55); }
-        25%  { transform: scaleY(0.4); }
-        37%  { transform: scaleY(0.6); }
-        50%  { transform: scaleY(0.5); }
-        62%  { transform: scaleY(0.55); }
-        75%  { transform: scaleY(0.4); }
-        100% { transform: scaleY(0.45); }
+        0% {
+          transform: scaleY(0.45);
+        }
+        12% {
+          transform: scaleY(0.55);
+        }
+        25% {
+          transform: scaleY(0.4);
+        }
+        37% {
+          transform: scaleY(0.6);
+        }
+        50% {
+          transform: scaleY(0.5);
+        }
+        62% {
+          transform: scaleY(0.55);
+        }
+        75% {
+          transform: scaleY(0.4);
+        }
+        100% {
+          transform: scaleY(0.45);
+        }
       }
 
       @keyframes dance2 {
-        0%   { transform: scaleY(0.35); }
-        15%  { transform: scaleY(0.7); }
-        30%  { transform: scaleY(0.45); }
-        45%  { transform: scaleY(0.65); }
-        60%  { transform: scaleY(0.5); }
-        75%  { transform: scaleY(0.75); }
-        100% { transform: scaleY(0.35); }
+        0% {
+          transform: scaleY(0.35);
+        }
+        15% {
+          transform: scaleY(0.7);
+        }
+        30% {
+          transform: scaleY(0.45);
+        }
+        45% {
+          transform: scaleY(0.65);
+        }
+        60% {
+          transform: scaleY(0.5);
+        }
+        75% {
+          transform: scaleY(0.75);
+        }
+        100% {
+          transform: scaleY(0.35);
+        }
       }
 
       @keyframes dance3 {
-        0%   { transform: scaleY(0.5); }
-        10%  { transform: scaleY(0.9); }
-        20%  { transform: scaleY(0.3); }
-        35%  { transform: scaleY(1); }
-        50%  { transform: scaleY(0.2); }
-        65%  { transform: scaleY(0.85); }
-        80%  { transform: scaleY(0.4); }
-        100% { transform: scaleY(0.5); }
+        0% {
+          transform: scaleY(0.5);
+        }
+        10% {
+          transform: scaleY(0.9);
+        }
+        20% {
+          transform: scaleY(0.3);
+        }
+        35% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0.2);
+        }
+        65% {
+          transform: scaleY(0.85);
+        }
+        80% {
+          transform: scaleY(0.4);
+        }
+        100% {
+          transform: scaleY(0.5);
+        }
       }
 
       @keyframes dance4 {
-        0%   { transform: scaleY(0.4); }
-        15%  { transform: scaleY(0.65); }
-        30%  { transform: scaleY(0.5); }
-        50%  { transform: scaleY(0.75); }
-        65%  { transform: scaleY(0.45); }
-        80%  { transform: scaleY(0.7); }
-        100% { transform: scaleY(0.4); }
+        0% {
+          transform: scaleY(0.4);
+        }
+        15% {
+          transform: scaleY(0.65);
+        }
+        30% {
+          transform: scaleY(0.5);
+        }
+        50% {
+          transform: scaleY(0.75);
+        }
+        65% {
+          transform: scaleY(0.45);
+        }
+        80% {
+          transform: scaleY(0.7);
+        }
+        100% {
+          transform: scaleY(0.4);
+        }
       }
 
       @keyframes dance5 {
-        0%   { transform: scaleY(0.4); }
-        12%  { transform: scaleY(0.5); }
-        25%  { transform: scaleY(0.6); }
-        40%  { transform: scaleY(0.45); }
-        55%  { transform: scaleY(0.55); }
-        70%  { transform: scaleY(0.4); }
-        85%  { transform: scaleY(0.6); }
-        100% { transform: scaleY(0.4); }
+        0% {
+          transform: scaleY(0.4);
+        }
+        12% {
+          transform: scaleY(0.5);
+        }
+        25% {
+          transform: scaleY(0.6);
+        }
+        40% {
+          transform: scaleY(0.45);
+        }
+        55% {
+          transform: scaleY(0.55);
+        }
+        70% {
+          transform: scaleY(0.4);
+        }
+        85% {
+          transform: scaleY(0.6);
+        }
+        100% {
+          transform: scaleY(0.4);
+        }
       }
 
       /* Content section */
@@ -149,14 +235,33 @@
       }
 
       .track-name {
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        position: relative;
         font-family: "Space Grotesk", sans-serif;
         font-weight: 700;
         font-size: 14px;
         letter-spacing: -0.02em;
         color: var(--on-surface);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      }
+
+      .track-name-inner {
+        display: inline-block;
+      }
+
+      .track-name-inner.scrolling {
+        padding-left: 100%;
+        animation: scroll-left var(--scroll-duration, 10s) linear infinite;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
       }
 
       .artist-name {
@@ -164,8 +269,19 @@
         font-weight: 400;
         font-size: 11px;
         color: var(--on-surface-variant);
-        /* text-transform: uppercase; */
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
         letter-spacing: 0.1em;
+      }
+
+      .artist-name-inner {
+        display: inline-block;
+      }
+
+      .artist-name-inner.scrolling {
+        padding-left: 100%;
+        animation: scroll-left var(--scroll-duration, 10s) linear infinite;
       }
 
       /* Progress section */
@@ -240,8 +356,12 @@
       <!-- Right: Content -->
       <div class="content">
         <div class="metadata">
-          <span class="track-name"></span>
-          <span class="artist-name"></span>
+          <div class="track-name">
+            <div class="track-name-inner"></div>
+          </div>
+          <div class="artist-name">
+            <div class="artist-name-inner"></div>
+          </div>
         </div>
         <div class="progress-section">
           <div class="progress-bar-container">
@@ -259,12 +379,38 @@
       let lastTrack = "";
       let elapsedSeconds = 0;
 
-      const trackEl = document.querySelector(".track-name");
-      const artistEl = document.querySelector(".artist-name");
+      const trackContainer = document.querySelector(".track-name");
+      const trackEl = document.querySelector(".track-name-inner");
+      const artistContainer = document.querySelector(".artist-name");
+      const artistEl = document.querySelector(".artist-name-inner");
       const elapsedEl = document.querySelector(".time-elapsed");
       const totalEl = document.querySelector(".time-total");
       const progressBar = document.querySelector(".progress-bar-fill");
       const visualizerBars = document.querySelectorAll(".visualizer-bar");
+
+      const SCROLL_SPEED = 20;
+
+      function updateTrackScroll() {
+        trackEl.classList.remove("scrolling");
+        const textWidth = trackEl.scrollWidth;
+        const containerWidth = trackContainer.clientWidth;
+        if (textWidth > containerWidth) {
+          const duration = textWidth / SCROLL_SPEED;
+          trackEl.style.setProperty("--scroll-duration", duration + "s");
+          trackEl.classList.add("scrolling");
+        }
+      }
+
+      function updateArtistScroll() {
+        artistEl.classList.remove("scrolling");
+        const textWidth = artistEl.scrollWidth;
+        const containerWidth = artistContainer.clientWidth;
+        if (textWidth > containerWidth) {
+          const duration = textWidth / SCROLL_SPEED;
+          artistEl.style.setProperty("--scroll-duration", duration + "s");
+          artistEl.classList.add("scrolling");
+        }
+      }
 
       function formatTime(seconds) {
         const m = Math.floor(seconds / 60);
@@ -286,7 +432,9 @@
         isPaused = true;
         lastTrack = "";
         artistEl.textContent = "Ku6epXBOCTuK";
-        trackEl.textContent = "github.com/Ku6epXBOCTuK";
+        updateArtistScroll();
+        trackEl.textContent = "github.com/Ku6epXBOCTuK/now_playing";
+        updateTrackScroll();
         totalEl.textContent = "--:--";
         elapsedEl.textContent = "--:--";
         progressBar.style.animation = "none";
@@ -327,8 +475,15 @@
           elapsedEl.textContent = "0:00";
 
           const [artist, title, duration] = clean.split("|");
-          if (artist) artistEl.textContent = artist.trim().toUpperCase();
-          if (title) trackEl.textContent = title.trim();
+          if (artist) {
+            artistEl.textContent = artist.trim().toUpperCase();
+            updateArtistScroll();
+          }
+          if (title) {
+            const text = title.trim();
+            trackEl.textContent = text;
+            updateTrackScroll();
+          }
           if (duration) {
             totalEl.textContent = duration.trim();
             const parts = duration.trim().split(":");
