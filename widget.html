@@ -63,15 +63,33 @@
         transform-origin: bottom center;
       }
 
-      .visualizer-bar.level-1 { transform: scaleY(0.2); }
-      .visualizer-bar.level-2 { transform: scaleY(0.3); }
-      .visualizer-bar.level-3 { transform: scaleY(0.4); }
-      .visualizer-bar.level-4 { transform: scaleY(0.5); }
-      .visualizer-bar.level-5 { transform: scaleY(0.6); }
-      .visualizer-bar.level-6 { transform: scaleY(0.7); }
-      .visualizer-bar.level-7 { transform: scaleY(0.8); }
-      .visualizer-bar.level-8 { transform: scaleY(0.9); }
-      .visualizer-bar.level-9 { transform: scaleY(1); }
+      .visualizer-bar.level-1 {
+        transform: scaleY(0.2);
+      }
+      .visualizer-bar.level-2 {
+        transform: scaleY(0.3);
+      }
+      .visualizer-bar.level-3 {
+        transform: scaleY(0.4);
+      }
+      .visualizer-bar.level-4 {
+        transform: scaleY(0.5);
+      }
+      .visualizer-bar.level-5 {
+        transform: scaleY(0.6);
+      }
+      .visualizer-bar.level-6 {
+        transform: scaleY(0.7);
+      }
+      .visualizer-bar.level-7 {
+        transform: scaleY(0.8);
+      }
+      .visualizer-bar.level-8 {
+        transform: scaleY(0.9);
+      }
+      .visualizer-bar.level-9 {
+        transform: scaleY(1);
+      }
 
       /* Content section */
       .content {
@@ -104,7 +122,7 @@
         font-weight: 400;
         font-size: 11px;
         color: var(--on-surface-variant);
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
         letter-spacing: 0.1em;
       }
 
@@ -137,8 +155,12 @@
       }
 
       @keyframes fillProgress {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
       }
 
       .time-labels {
@@ -176,27 +198,74 @@
       <!-- Right: Content -->
       <div class="content">
         <div class="metadata">
-          <span class="track-name">CYBERNETIC_DREAMSCAPE</span>
-          <span class="artist-name">AETHER_WAVE</span>
+          <span class="track-name">now_playing.html</span>
+          <span class="artist-name">Ku6epXBOCTuK</span>
         </div>
         <div class="progress-section">
           <div class="progress-bar-container">
             <div class="progress-bar-fill"></div>
           </div>
           <div class="time-labels">
-            <span class="time-elapsed">01:24</span>
-            <span class="time-total">03:45</span>
+            <span class="time-elapsed">0:00</span>
+            <span class="time-total">3:00</span>
           </div>
         </div>
       </div>
     </div>
     <script>
-      (function () {
-        const totalEl = document.querySelector('.time-total');
-        const parts = totalEl.textContent.trim().split(':');
-        const totalSeconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
-        document.documentElement.style.setProperty('--duration', totalSeconds + 's');
-      })();
+      const filePath = "track_info.txt";
+      let lastTrack = "";
+      let elapsedSeconds = 0;
+
+      const trackEl = document.querySelector(".track-name");
+      const artistEl = document.querySelector(".artist-name");
+      const elapsedEl = document.querySelector(".time-elapsed");
+      const totalEl = document.querySelector(".time-total");
+      const progressBar = document.querySelector(".progress-bar-fill");
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return m + ":" + String(s).padStart(2, "0");
+      }
+
+      function setDuration(seconds) {
+        document.documentElement.style.setProperty("--duration", seconds + "s");
+        progressBar.style.animation = "none";
+        progressBar.offsetHeight;
+        progressBar.style.animation = "fillProgress var(--duration, 180s) linear forwards";
+      }
+
+      async function update() {
+        elapsedSeconds++;
+        elapsedEl.textContent = formatTime(elapsedSeconds);
+
+        try {
+          const response = await fetch(filePath + "?t=" + Date.now());
+          const text = await response.text();
+          const clean = text.trim();
+          if (!clean || clean === lastTrack) return;
+
+          lastTrack = clean;
+          elapsedSeconds = 0;
+          elapsedEl.textContent = "0:00";
+
+          const [artist, title, duration] = clean.split(";");
+          if (artist) artistEl.textContent = artist.trim().toUpperCase();
+          if (title) trackEl.textContent = title.trim();
+          if (duration) {
+            totalEl.textContent = duration.trim();
+            const parts = duration.trim().split(":");
+            const totalSeconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+            setDuration(totalSeconds);
+          }
+        } catch (e) {
+          console.error("Ошибка чтения файла:", e);
+        }
+      }
+
+      setInterval(update, 1000);
+      update();
     </script>
   </body>
 </html>
