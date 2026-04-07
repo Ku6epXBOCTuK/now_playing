@@ -13,6 +13,7 @@
       :root {
         --primary: #a1faff;
         --primary-dim: #00f4fe;
+        --primary-dim-rgb: 0, 244, 254;
         --tertiary: #64b3ff;
         --on-surface: #ffffff;
         --on-surface-variant: #adaaaa;
@@ -40,13 +41,13 @@
         width: 240px;
         height: 70px;
         background: var(--neutral-900);
-        border: 1px solid rgba(var(--outline-variant-rgb), 0.15);
-        padding: 7px 10px;
-        border-radius: 8px;
+        border: 1px solid rgba(var(--primary-dim-rgb), 0.2);
+        padding: 6px;
+        border-radius: 6px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 10px;
+        gap: 6px;
         overflow: hidden;
       }
 
@@ -56,13 +57,16 @@
         align-items: flex-end;
         gap: 3px;
         height: 40px;
-        width: 32px;
+        width: 40px;
         flex-shrink: 0;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+        padding: 4px 6px;
       }
 
       .visualizer-bar {
         width: 3px;
-        height: 40px;
+        height: 32px;
         background: linear-gradient(to top, var(--primary-dim), var(--primary));
         border-radius: 9999px;
         transform-origin: bottom center;
@@ -464,33 +468,40 @@
 
           if (clean === lastTrack) return;
 
+          const [artist, title, duration] = clean.split("|");
+          const hasData = artist?.trim() || title?.trim() || duration?.trim();
+
+          if (!hasData) {
+            showPaused();
+            return;
+          }
+
           showPlaying();
           lastTrack = clean;
           elapsedSeconds = 0;
           elapsedEl.textContent = "0:00";
 
-          const [artist, title, duration] = clean.split("|");
-          if (artist) {
-            artistEl.textContent = artist.trim();
-            updateArtistScroll();
-          }
-          if (title) {
-            const text = title.trim();
-            trackEl.textContent = text;
-            updateTrackScroll();
-          }
-          if (duration) {
+          artistEl.textContent = artist ? artist.trim() : "";
+          updateArtistScroll();
+
+          const titleText = title ? title.trim() : "";
+          trackEl.textContent = titleText;
+          updateTrackScroll();
+
+          if (duration && duration.trim()) {
             totalEl.textContent = duration.trim();
             const parts = duration.trim().split(":");
             const totalSeconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
             setDuration(totalSeconds);
+          } else {
+            totalEl.textContent = "--:--";
           }
         } catch (e) {
           console.error("Ошибка чтения файла:", e);
+          showPaused();
         }
       }
 
-      showPaused();
       update();
       setInterval(update, 1000);
     </script>
