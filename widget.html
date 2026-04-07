@@ -69,6 +69,11 @@
       .visualizer-bar:nth-child(4) { animation: dance4 0.9s ease-in-out infinite; }
       .visualizer-bar:nth-child(5) { animation: dance5 0.7s ease-in-out infinite; }
 
+      .visualizer-bar.paused {
+        animation: none !important;
+        transform: scaleY(0);
+      }
+
       @keyframes dance1 {
         0%   { transform: scaleY(0.45); }
         12%  { transform: scaleY(0.55); }
@@ -253,6 +258,7 @@
       const elapsedEl = document.querySelector(".time-elapsed");
       const totalEl = document.querySelector(".time-total");
       const progressBar = document.querySelector(".progress-bar-fill");
+      const visualizerBars = document.querySelectorAll(".visualizer-bar");
 
       function formatTime(seconds) {
         const m = Math.floor(seconds / 60);
@@ -267,16 +273,58 @@
         progressBar.style.animation = "fillProgress var(--duration, 180s) linear forwards";
       }
 
+      let isPaused = true;
+
+      function showPaused() {
+        if (isPaused) return;
+        isPaused = true;
+        lastTrack = "";
+        artistEl.textContent = "Ku6epXBOCTuK";
+        trackEl.textContent = "github.com/Ku6epXBOCTuK";
+        totalEl.textContent = "";
+        elapsedEl.textContent = "";
+        progressBar.style.animationPlayState = "paused";
+        visualizerBars.forEach((bar, i) => {
+          if (i === 1 || i === 3) {
+            bar.classList.add("paused");
+            bar.style.transformOrigin = "center center";
+            bar.style.transform = "scaleY(0.4)";
+          } else {
+            bar.classList.add("paused");
+          }
+        });
+      }
+
+      function showPlaying() {
+        if (!isPaused) return;
+        isPaused = false;
+        progressBar.style.animationPlayState = "running";
+        visualizerBars.forEach((bar) => {
+          bar.classList.remove("paused");
+          bar.style.transformOrigin = "";
+          bar.style.transform = "";
+        });
+      }
+
       async function update() {
-        elapsedSeconds++;
-        elapsedEl.textContent = formatTime(elapsedSeconds);
+        if (!isPaused) {
+          elapsedSeconds++;
+          elapsedEl.textContent = formatTime(elapsedSeconds);
+        }
 
         try {
           const response = await fetch(filePath + "?t=" + Date.now());
           const text = await response.text();
           const clean = text.replace(/^\uFEFF/, "").trim();
-          if (!clean || clean === lastTrack) return;
 
+          if (!clean) {
+            showPaused();
+            return;
+          }
+
+          if (clean === lastTrack) return;
+
+          showPlaying();
           lastTrack = clean;
           elapsedSeconds = 0;
           elapsedEl.textContent = "0:00";
@@ -296,6 +344,7 @@
       }
 
       setInterval(update, 1000);
+      showPaused();
       update();
     </script>
   </body>
