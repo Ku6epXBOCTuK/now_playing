@@ -61,6 +61,7 @@
         background: linear-gradient(to top, #00f4fe, #a1faff);
         border-radius: 9999px;
         transform-origin: bottom center;
+        transition: transform 1s ease;
       }
 
       .visualizer-bar.level-1 {
@@ -222,6 +223,7 @@
       const elapsedEl = document.querySelector(".time-elapsed");
       const totalEl = document.querySelector(".time-total");
       const progressBar = document.querySelector(".progress-bar-fill");
+      const visualizerBars = document.querySelectorAll(".visualizer-bar");
 
       function formatTime(seconds) {
         const m = Math.floor(seconds / 60);
@@ -234,6 +236,13 @@
         progressBar.style.animation = "none";
         progressBar.offsetHeight;
         progressBar.style.animation = "fillProgress var(--duration, 180s) linear forwards";
+      }
+
+      function updateBars() {
+        visualizerBars.forEach((bar) => {
+          const level = Math.floor(Math.random() * 9) + 1;
+          bar.className = "visualizer-bar level-" + level;
+        });
       }
 
       async function update() {
@@ -265,7 +274,9 @@
       }
 
       setInterval(update, 1000);
+      setInterval(updateBars, 1000);
       update();
+      updateBars();
     </script>
   </body>
 </html>
