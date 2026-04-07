@@ -250,7 +250,7 @@
           elapsedSeconds = 0;
           elapsedEl.textContent = "0:00";
 
-          const [artist, title, duration] = clean.split(";");
+          const [artist, title, duration] = clean.split("|");
           if (artist) artistEl.textContent = artist.trim().toUpperCase();
           if (title) trackEl.textContent = title.trim();
           if (duration) {
