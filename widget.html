@@ -459,7 +459,8 @@
         try {
           const response = await fetch(filePath + "?t=" + Date.now());
           const text = await response.text();
-          const clean = text.replace(/^\uFEFF/, "").trim();
+          const firstLine = text.replace(/^\uFEFF/, "").trim().split("\n")[0];
+          const clean = firstLine.trim();
 
           if (!clean) {
             showPaused();
